@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {JSX} from 'react'
 import {FilterValuesType} from "./App";
 
 export type TaskType = {
@@ -12,31 +12,81 @@ type PropsType = {
     tasks: TaskType[]
 //     ||
 //     tasks: Array<TaskType>
-    removeTasak:  (id: number) => void
+    removeTasak: (id: number) => void
     changeFilter: (value: FilterValuesType) => void
 }
 
 
 export const Todolist = (props: PropsType) => {
+
+
+    // map через цикл-------------------------------------------------------------------
+    // const taskslist: Array<JSX.Element> = []
+    // for (let i = 0; i < props.tasks.length; i++) {
+    //     taskslist.push(
+    //         <li><input type='checkbox' checked={props.tasks[i].isDone}/>
+    //             <span>{props.tasks[i].title}</span>
+    //             <button onClick={() => {
+    //                 props.removeTasak(props.tasks[i].id)
+    //             }}>x
+    //             </button>
+    //         </li>
+    //     )
+    // }
+
+
+    // или такой map, вообще метод .map() является более предпочтительным
+    const taskslist: Array<JSX.Element> = props.tasks.map(t => {
+        return (
+            <li><input type='checkbox' checked={t.isDone}/>
+                <span>{t.title}</span>
+                <button onClick={() => {
+                    props.removeTasak(t.id)
+                }}>x
+                </button>
+            </li>
+        )
+    })
+
+    // map через цикл-------------------------------------------------------------------
+
     return (
-        <div className={'Todolist'}>
+        <div className='todolist'>
             <h2>{props.title}</h2>
             <div>
                 <input/>
                 <button>+</button>
             </div>
             <ul>
-                {
-                    props.tasks.map(t => <li><input type='checkbox' checked={t.isDone}/>
-                            <span>{t.title}</span>
-                            <button onClick={() => {props.removeTasak(t.id)}}>x</button>
-                        </li>
-                    )
-                }
+                {/* map через цикл-------------------------------------------------------------------*/}
+                {taskslist}
+                {/* map через цикл-------------------------------------------------------------------*/}
+
+
+                {/*{*/}
+                {/*    props.tasks.map(t => <li><input type='checkbox' checked={t.isDone}/>*/}
+                {/*            <span>{t.title}</span>*/}
+                {/*            <button onClick={() => {*/}
+                {/*                props.removeTasak(t.id)*/}
+                {/*            }}>x*/}
+                {/*            </button>*/}
+                {/*        </li>*/}
+                {/*    )*/}
+                {/*}*/}
+
                 <div>
-                    <button onClick={() => {props.changeFilter("All")}}>All</button>
-                    <button onClick={() => {props.changeFilter("Active")}}>Active</button>
-                    <button onClick={() => {props.changeFilter("Completed")}}>Completed</button>
+                    <button onClick={() => {
+                        props.changeFilter("All")
+                    }}>All
+                    </button>
+                    <button onClick={() => {
+                        props.changeFilter("Active")
+                    }}>Active
+                    </button>
+                    <button onClick={() => {
+                        props.changeFilter("Completed")
+                    }}>Completed
+                    </button>
                 </div>
             </ul>
         </div>

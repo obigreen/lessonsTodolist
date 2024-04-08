@@ -17,7 +17,7 @@ ul {
     justify-content: center;
 }
 
-.Todolist > h2 {
+.todolist > h2 {
     font-size: 20px;
     width: 200px;
 }
