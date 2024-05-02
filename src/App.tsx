@@ -1,12 +1,18 @@
 import React, {useState} from 'react'
 import './App.css'
-import {TaskType, Todolist} from './Todolist'
+import {Todolist} from './Todolist'
 
 // CRUT операции
 // Create
 // Read
 // Update
 // Delete
+
+export type TaskType = {
+    id: number
+    title: string
+    isDone: boolean
+}
 
 
 export type FilterValuesType = "All" | "Active" | "Completed"
@@ -16,7 +22,7 @@ function App() {
 
     const todoListTitle = "What to learn"
     // global state
-    let [tasks, setTasks] = useState<Array<TaskType>>([
+    let [tasks, setTasks] = useState([
         {id: 1, title: "CSS", isDone: true},
         {id: 2, title: "JS", isDone: true},
         {id: 3, title: "React", isDone: false},

@@ -1,11 +1,6 @@
 import React, {JSX} from 'react'
-import {FilterValuesType} from "./App";
+import {FilterValuesType, TaskType} from "./App";
 
-export type TaskType = {
-    id: number
-    title: string
-    isDone: boolean
-}
 
 
 type PropsType = {
