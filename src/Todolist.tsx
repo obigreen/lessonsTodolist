@@ -1,5 +1,5 @@
 import React from 'react'
-import {TaskType} from "./App";
+import {FilterValuesType, TaskType} from "./App";
 import {Button} from "./Button";
 
 
@@ -7,10 +7,11 @@ type PropsType = {
     title: string
     tasks: TaskType[]
     removeTask: (taskId: number) => void
+    changeFilter: (filter: FilterValuesType) => void
 }
 
 
-export const Todolist = ({title, tasks, removeTask}: PropsType) => {
+export const Todolist = ({title, tasks, removeTask, changeFilter}: PropsType) => {
 
 
     return (
@@ -41,12 +42,9 @@ export const Todolist = ({title, tasks, removeTask}: PropsType) => {
             </ul>
 
             <div>
-                <Button onClick={() => {
-                }} title={'All'}/>
-                <Button onClick={() => {
-                }} title={'Active'}/>
-                <Button onClick={() => {
-                }} title={'Completed'}/>
+                <Button title={"All"} onClick={() => {changeFilter('All')}}/>
+                <Button title={"Active"} onClick={() => {changeFilter('Active')}}/>
+                <Button title={"Completed"} onClick={() => {changeFilter('Completed')}}/>
             </div>
         </div>
     )
