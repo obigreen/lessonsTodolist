@@ -1,4 +1,3 @@
-import React from 'react'
 import {FilterValuesType, TaskType} from "./App";
 import {Button} from "./Button";
 
@@ -6,7 +5,7 @@ import {Button} from "./Button";
 type PropsType = {
     title: string
     tasks: TaskType[]
-    removeTask: (taskId: number) => void
+    removeTask: (taskId: string) => void
     changeFilter: (filter: FilterValuesType) => void
 }
 
@@ -18,7 +17,7 @@ export const Todolist = ({title, tasks, removeTask, changeFilter}: PropsType) =>
         <div className='todolist'>
             <h2>{title}</h2>
             <div>
-                <input/>
+                <input />
                 <button>+</button>
             </div>
             <ul>
