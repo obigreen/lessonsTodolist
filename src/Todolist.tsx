@@ -5,12 +5,13 @@ import {Button} from "./Button";
 type PropsType = {
     title: string
     tasks: TaskType[]
+    addTask: (title: string) => void
     removeTask: (taskId: string) => void
     changeFilter: (filter: FilterValuesType) => void
 }
 
 
-export const Todolist = ({title, tasks, removeTask, changeFilter}: PropsType) => {
+export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: PropsType) => {
 
 
     return (
@@ -18,7 +19,7 @@ export const Todolist = ({title, tasks, removeTask, changeFilter}: PropsType) =>
             <h2>{title}</h2>
             <div>
                 <input />
-                <button>+</button>
+                <Button title={"+"} onClick={() => {addTask("New task")}}/>
             </div>
             <ul>
                 {
