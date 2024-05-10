@@ -18,8 +18,10 @@ export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: Prop
         <div className='todolist'>
             <h2>{title}</h2>
             <div>
-                <input />
-                <Button title={"+"} onClick={() => {addTask("New task")}}/>
+                <input/>
+                <Button title={"+"} onClick={() => {
+                    addTask("New task")
+                }}/>
             </div>
             <ul>
                 {
@@ -42,9 +44,15 @@ export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: Prop
             </ul>
 
             <div>
-                <Button title={"All"} onClick={() => {changeFilter('All')}}/>
-                <Button title={"Active"} onClick={() => {changeFilter('Active')}}/>
-                <Button title={"Completed"} onClick={() => {changeFilter('Completed')}}/>
+                <Button title={"All"} onClick={() => {
+                    changeFilter('All')
+                }}/>
+                <Button title={"Active"} onClick={() => {
+                    changeFilter('Active')
+                }}/>
+                <Button title={"Completed"} onClick={() => {
+                    changeFilter('Completed')
+                }}/>
             </div>
         </div>
     )
