@@ -24,6 +24,8 @@ function App() {
         {id: v1(), title: 'ReactJS', isDone: false}
     ]);
 
+    console.log(typeof(v1()));
+
     // change logic
     const removeTask = (taskId: string) => {
         setTasks(tasks.filter(task => task.id !== taskId))

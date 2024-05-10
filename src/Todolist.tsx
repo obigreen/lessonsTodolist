@@ -19,9 +19,7 @@ export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: Prop
             <h2>{title}</h2>
             <div>
                 <input/>
-                <Button title={"+"} onClick={() => {
-                    addTask("New task")
-                }}/>
+                <Button title={"+"} onClick={() => {addTask("New task")}}/>
             </div>
             <ul>
                 {
