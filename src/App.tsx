@@ -54,14 +54,10 @@ function App() {
             title: title,
             isDone: false
         }
-        // вроде как порядок ...tasks, newTask определяет, будет ли добавляться в конце списка или в начале
         const nextTasksState = [...tasks, newTask]
         setTasks(nextTasksState)
         // short version
         // setTasks([...tasks, newTask])
-
-        // супииииркоротко, можно удалить все что выше до addTask
-        // setTasks([{id: v1(), title, isDone: false}, ...tasks])
     }
 
 
