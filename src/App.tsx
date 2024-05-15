@@ -32,7 +32,7 @@ function App() {
     }
 
 
-    // filter tasks with list
+    // filter tasks with list  UI logic
     const [filter, setFilter] = useState<FilterValuesType>
     ('All')
     const changeFilter = (filter: FilterValuesType) => {
