@@ -17,21 +17,11 @@ export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: Prop
     //ui logic
     const [taskTitle, setTaskTitle] = useState("")
 
-
     const addTaskHandler = () => {
         addTask(taskTitle)
         setTaskTitle("")
     }
 
-    // здесь мы убирали обработчик
-    // const addTaskOnkeyUpHandler = taskTitle.length === 0
-    //     ? undefined : (e: KeyboardEvent<HTMLInputElement>) => {
-    //         if (e.key === "Enter") {
-    //             addTaskHandler()
-    //         }
-    //     }
-
-    //еще варик
     // обработчик срабатывает, но ничего не добавляет
     const addTaskOnKeyUpHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter" && taskTitle) {
@@ -39,8 +29,6 @@ export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: Prop
         }
     }
 
-
-    // этот вынес
     const changeTaskTitleHandler = (e: ChangeEvent<HTMLInputElement>) => setTaskTitle(e.currentTarget.value)
     const isAddBtnDis = taskTitle.length === 0 || taskTitle.length > 15
 
@@ -50,20 +38,11 @@ export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: Prop
             <div>
                 <input value={taskTitle}
                        onChange={changeTaskTitleHandler}
-
-                    // onKeyUp={e => {
-                    //     if (e.key === "Enter") {
-                    //         addTaskHandler()
-                    //     }
-                    // }}/>
                        onKeyUp={addTaskOnKeyUpHandler}/>
 
                 <Button title={"+"}
                         onClick={addTaskHandler}
                         disabled={isAddBtnDis}/>
-
-                {/*{taskTitle.length > 10 && <div>recomended 10 charteres</div>}*/}
-
 
                 {
                     taskTitle.length > 15
