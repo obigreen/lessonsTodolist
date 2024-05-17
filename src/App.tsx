@@ -12,7 +12,6 @@ export type TaskType = {
 
 export type FilterValuesType = 'All' | 'Active' | 'Completed'
 
-
 function App() {
     // BLL - bisnes logic lair
     // data
@@ -31,22 +30,6 @@ function App() {
         setTasks(tasks.filter(task => task.id !== taskId))
     }
 
-
-    // filter tasks with list  UI logic
-    const [filter, setFilter] = useState<FilterValuesType>
-    ('All')
-    const changeFilter = (filter: FilterValuesType) => {
-        setFilter(filter)
-    }
-    let taskForTodolist = tasks
-    if (filter === 'Active') {
-        taskForTodolist = tasks.filter(task => !task.isDone)
-    }
-    if (filter === 'Completed') {
-        taskForTodolist = tasks.filter(task => task.isDone)
-    }
-
-
     // add task
     const addTask = (title: string) => {
         const newTask: TaskType = {
@@ -64,9 +47,9 @@ function App() {
     return (
         <div className={'App'}>
             <Todolist title={todolistTitle}
-                      tasks={taskForTodolist}
+                      tasks={tasks}
                       removeTask={removeTask}
-                      changeFilter={changeFilter}
+                      // changeFilter={changeFilter}
                       addTask={addTask}/>
         </div>
     )

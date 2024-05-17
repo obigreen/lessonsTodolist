@@ -8,20 +8,40 @@ type PropsType = {
     tasks: TaskType[]
     addTask: (title: string) => void
     removeTask: (taskId: string) => void
-    changeFilter: (filter: FilterValuesType) => void
+    // changeFilter: (filter: FilterValuesType) => void
 }
 
 
-export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: PropsType) => {
+export const Todolist = ({title, tasks, removeTask, addTask}: PropsType) => {
 
-    //ui logic
+    // UI logic
+    // stats
+    const [filter, setFilter] = useState<FilterValuesType>('All')
     const [taskTitle, setTaskTitle] = useState("")
+
+
+    const changeFilter = (filter: FilterValuesType) => {
+        setFilter(filter)
+    }
+
+    const getFilteredTasks = (allTasks: Array<TaskType>, filterValue: FilterValuesType): Array<TaskType> => {
+        switch (filterValue) {
+            case "Active":
+                return allTasks.filter(t => !t.isDone);
+            case "Completed":
+                return allTasks.filter(t => t.isDone);
+            default:
+                return allTasks;
+        }
+    }
+
+    const filteredTasks: Array<TaskType> = getFilteredTasks(tasks, filter)
+
 
     const addTaskHandler = () => {
         addTask(taskTitle)
         setTaskTitle("")
     }
-
     // обработчик срабатывает, но ничего не добавляет
     const addTaskOnKeyUpHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter" && taskTitle) {
@@ -51,9 +71,9 @@ export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: Prop
                 }
             </div>
 
-            {tasks.length === 0 ? <p>not tasks</p> :
+            {filteredTasks.length === 0 ? <p>not tasks</p> :
                 <ul>
-                    {tasks.map(t => {
+                    {filteredTasks.map(t => {
 
                             const onClickRemoveTaskHandler = () => {
                                 removeTask(t.id);
@@ -72,15 +92,9 @@ export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: Prop
             }
 
             <div>
-                <Button title={"All"} onClick={() => {
-                    changeFilter('All')
-                }}/>
-                <Button title={"Active"} onClick={() => {
-                    changeFilter('Active')
-                }}/>
-                <Button title={"Completed"} onClick={() => {
-                    changeFilter('Completed')
-                }}/>
+                <Button title={"All"} onClick={() => changeFilter('All')}/>
+                <Button title={"Active"} onClick={() => changeFilter('Active')}/>
+                <Button title={"Completed"} onClick={() => changeFilter('Completed')}/>
             </div>
         </div>
     )
