@@ -21,3 +21,17 @@ ul {
     font-size: 20px;
     width: 200px;
 }
+
+
+.task {
+    font-weight: 600;
+}
+
+.task-done {
+    opacity: 0.5;
+    text-decoration: line-through;
+}
+
+.btn-filter-active {
+    background-color: aquamarine;
+}

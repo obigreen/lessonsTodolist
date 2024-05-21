@@ -10,6 +10,12 @@ export type TaskType = {
     isDone: boolean
 }
 
+// дополникть в конспект
+// C create
+// R (view mode, filter, sort, search, pagination)
+// U update (change task title, change task status)
+// D delite
+
 export type FilterValuesType = 'All' | 'Active' | 'Completed'
 
 function App() {
@@ -23,14 +29,30 @@ function App() {
         {id: v1(), title: 'ReactJS', isDone: false}
     ]);
 
-    console.log(typeof(v1()));
 
-    // change logic
+    // D - Delete
     const removeTask = (taskId: string) => {
         setTasks(tasks.filter(task => task.id !== taskId))
     }
 
-    // add task
+    // U - Update
+
+    //() в скобках таких параметры
+    const changeTaskStatus = (taskId: string, newIsDoneValue: boolean) => {
+        // это первый простой, но код будет лучше (этот плох тем что изменяет объект и не копирует)
+
+        // const taskForUpdate: TaskType | undefined = tasks.find(t => t.id === taskId)
+        // if (taskForUpdate) {
+        //     taskForUpdate.isDone = !taskForUpdate.isDone
+        // }
+        // setTasks([...tasks])
+
+        const nextState: Array<TaskType> = tasks.map(t => t.id === taskId ? {...t, isDone: newIsDoneValue} : t)
+            setTasks(nextState)
+
+    }
+
+    // C - Create
     const addTask = (title: string) => {
         const newTask: TaskType = {
             id: v1(),
@@ -49,8 +71,9 @@ function App() {
             <Todolist title={todolistTitle}
                       tasks={tasks}
                       removeTask={removeTask}
-                      // changeFilter={changeFilter}
-                      addTask={addTask}/>
+                // changeFilter={changeFilter}
+                      addTask={addTask}
+                      changeTaskStatus={changeTaskStatus}/>
         </div>
     )
 }
