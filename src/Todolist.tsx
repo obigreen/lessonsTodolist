@@ -3,6 +3,7 @@ import {Button} from "./Button";
 import {useState, KeyboardEvent, ChangeEvent} from "react";
 
 
+
 type PropsType = {
     title: string
     tasks: TaskType[]
@@ -19,6 +20,8 @@ export const Todolist = ({title, tasks, removeTask, addTask, changeTaskStatus}: 
     // stats
     const [filter, setFilter] = useState<FilterValuesType>('All')
     const [taskTitle, setTaskTitle] = useState("")
+
+    const [error, setError] = useState<string | null>(null)
 
 
     const changeFilter = (filter: FilterValuesType) => {
@@ -40,9 +43,17 @@ export const Todolist = ({title, tasks, removeTask, addTask, changeTaskStatus}: 
 
 
     const addTaskHandler = () => {
-        addTask(taskTitle)
+
+        const trimmedTaskTitle = taskTitle.trim()
+        if(trimmedTaskTitle !== "") {
+            addTask(taskTitle)
+        } else {
+            setError("Title is requiared")
+        }
         setTaskTitle("")
     }
+
+
     // обработчик срабатывает, но ничего не добавляет
     const addTaskOnKeyUpHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter" && taskTitle) {
@@ -50,8 +61,12 @@ export const Todolist = ({title, tasks, removeTask, addTask, changeTaskStatus}: 
         }
     }
 
-    const changeTaskTitleHandler = (e: ChangeEvent<HTMLInputElement>) => setTaskTitle(e.currentTarget.value)
-    const isAddBtnDis = taskTitle.length === 0 || taskTitle.length > 15
+    const changeTaskTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        error && setError(null)
+        setTaskTitle(e.currentTarget.value)
+    }
+
+    const isAddBtnDis = taskTitle.length === 0 || taskTitle.trim().length >= 15
 
     return (
         <div className='todolist'>
@@ -59,17 +74,17 @@ export const Todolist = ({title, tasks, removeTask, addTask, changeTaskStatus}: 
             <div>
                 <input value={taskTitle}
                        onChange={changeTaskTitleHandler}
-                       onKeyUp={addTaskOnKeyUpHandler}/>
+                       onKeyUp={addTaskOnKeyUpHandler}
+                       className={error ? 'task-input-error' : ""}/>
 
                 <Button title={"+"}
                         onClick={addTaskHandler}
                         disabled={isAddBtnDis}/>
 
-                {
-                    taskTitle.length > 15
-                        ? <div>max 15 characters</div>
-                        : taskTitle.length > 10 && <div>recommended 10 characters</div>
-                }
+                {/*{error ? <div>{error}</div> : ''}*/}
+                {error && <div style={{color: "red"}}>{error}</div>}
+                {taskTitle.trim().length > 10 && taskTitle.length < 15 && <div>recommended 10 characters</div>}
+                {taskTitle.trim().length >= 15 && <div style={{color: "red"}}>Title is too long</div>}
             </div>
 
             {filteredTasks.length === 0 ? <p>not tasks</p> :
@@ -97,16 +112,16 @@ export const Todolist = ({title, tasks, removeTask, addTask, changeTaskStatus}: 
             <div>
                 <Button title={"All"}
                         onClick={() => changeFilter('All')}
-                        classes={filter === "All" ? "btn-filter-active" : ""} />
+                        classes={filter === "All" ? "btn-filter-active" : ""}/>
 
 
                 <Button title={"Active"}
                         onClick={() => changeFilter('Active')}
-                        classes={filter === "Active" ? "btn-filter-active" : ""} />
+                        classes={filter === "Active" ? "btn-filter-active" : ""}/>
 
                 <Button title={"Completed"}
                         onClick={() => changeFilter('Completed')}
-                        classes={filter === "Completed" ? "btn-filter-active" : ""} />
+                        classes={filter === "Completed" ? "btn-filter-active" : ""}/>
             </div>
         </div>
     )

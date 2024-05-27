@@ -35,3 +35,7 @@ ul {
 .btn-filter-active {
     background-color: aquamarine;
 }
+
+.task-input-error {
+    border: 2px solid red;
+}
