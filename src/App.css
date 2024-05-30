@@ -1,9 +1,5 @@
 .App {
     padding: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    height: 100vh;
 }
 
 ul {
@@ -11,15 +7,17 @@ ul {
     padding-left: 10px;
 }
 
-.App > div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.todolist {
+    /*max-width: 300px;*/
+    /*width: 100%;*/
+    width: max-content;
+    padding: 15px;
+    background-color: antiquewhite;
 }
 
-.todolist > h2 {
+.todolist > h1 {
     font-size: 20px;
-    width: 200px;
+
 }
 
 

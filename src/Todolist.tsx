@@ -12,7 +12,7 @@ export const Todolist = ({title}: PropsType) => {
 
     return (
         <div className='todolist'>
-            <h2>{title}</h2>
+            <h1>{title}</h1>
 
             <div>
                 <input/>
@@ -20,22 +20,17 @@ export const Todolist = ({title}: PropsType) => {
             </div>
 
             <ul>
-
                 <li>
-                    <input type='checkbox' checked={true}/>
+                    <input type='checkbox' checked={false}/>
                     <span>HTML&CSS</span>
                     <Button title={"x"}/>
                 </li>
-
             </ul>
 
 
             <div>
                 <Button title={"All"}/>
-
-
                 <Button title={"Active"}/>
-
                 <Button title={"Completed"}/>
             </div>
         </div>
