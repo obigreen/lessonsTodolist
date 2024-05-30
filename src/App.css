@@ -27,15 +27,3 @@ ul {
     font-weight: 600;
 }
 
-.task-done {
-    opacity: 0.5;
-    text-decoration: line-through;
-}
-
-.btn-filter-active {
-    background-color: aquamarine;
-}
-
-.task-input-error {
-    border: 2px solid red;
-}
