@@ -28,6 +28,7 @@ export const Todolist = ({title, tasks, removeTasks, changeFilter, filter, addTa
         }
     }
     const filteredTasks: Array<TaskType> = getFilteredTasks(tasks, filter)
+    
     const addTaskHandler = () => {
         addTask(taskTitle)
         setTaskTitle('')
