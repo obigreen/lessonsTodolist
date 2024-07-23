@@ -35,6 +35,7 @@ function App() {
         setTasks(tasks.filter(task => task.id !== taskId))
     }
 
+
     //filter
     const changeFilter = (filter: FilterValueType) => {
         setFilter(filter)
