@@ -1,6 +1,8 @@
 import {FilterValuesType, TaskType} from "./App";
-import {ChangeEvent, KeyboardEvent, useState} from "react";
+import {ChangeEvent,} from "react";
 import {Button} from "./Button";
+import {AddItemForm} from "./AddItemForm";
+import {EditableSpan} from "./EditableSpan";
 
 type PropsType = {
     title: string
@@ -13,6 +15,8 @@ type PropsType = {
     addTask: (title: string, todolistId: string) => void
     changeTaskStatus: (taskId: string, taskStatus: boolean, todolistId: string) => void
     RemoveTodolist: (todolistId: string) => void
+    changeTaskTitle: (taskId: string, title: string, todolistId: string) => void
+    changeTodolistTitle: (title: string, todolistId: string) => void
 }
 
 export const Todolist = (props: PropsType) => {
@@ -25,55 +29,41 @@ export const Todolist = (props: PropsType) => {
         addTask,
         changeTaskStatus,
         todolistId,
-        RemoveTodolist
+        RemoveTodolist,
+        changeTaskTitle,
+        changeTodolistTitle,
     } = props
 
-    const [taskTitle, setTaskTitle] = useState('')
-    const [error, setError] = useState<string | null>(null)
 
-    const addTaskHandler = () => {
-        if (taskTitle.trim() !== '') {
-            addTask(taskTitle.trim(), todolistId)
-            setTaskTitle('')
-        } else {
-            setError('Title is required')
-        }
+    const addTaskCallback = (taskTitle: string) => {
+        addTask(taskTitle, todolistId)
     }
 
-    const changeTaskTitleHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setTaskTitle(event.currentTarget.value)
-    }
-
-    const addTaskOnKeyUpHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
-        if (event.key === 'Enter') {
-            addTaskHandler()
-        }
-    }
 
     const changeFilterTasksHandler = (filter: FilterValuesType) => {
         changeFilter(filter, todolistId)
     }
 
+
+    const changeTodolistTitleCallback = (newTitle: string) => {
+        changeTodolistTitle(newTitle, todolistId)
+    }
+
+
     return (
         <div>
-            <h3>{title}</h3>
-            <button onClick={() => RemoveTodolist(todolistId)}>x</button>
-            <div>
-                <input
-                    className={error ? 'error' : ''}
-                    value={taskTitle}
-                    onChange={changeTaskTitleHandler}
-                    onKeyUp={addTaskOnKeyUpHandler}
-                />
-                <Button title={'+'} onClick={addTaskHandler}/>
-                {error && <div className={'error-message'}>{error}</div>}
-            </div>
+            <h3>
+                <EditableSpan title={title} changeTitle={changeTodolistTitleCallback} />
+                <button onClick={() => RemoveTodolist(todolistId)}>x</button>
+            </h3>
+            <AddItemForm addItem={addTaskCallback}/>
             {
                 tasks.length === 0
                     ? <p>Тасок нет</p>
                     : <ul>
                         {tasks.map((task) => {
+
+
 
                             const removeTaskHandler = () => {
                                 removeTask(task.id, todolistId)
@@ -83,10 +73,14 @@ export const Todolist = (props: PropsType) => {
                                 const newStatusValue = e.currentTarget.checked
                                 changeTaskStatus(task.id, newStatusValue, todolistId)
                             }
+                            const changeTaskTitleCollback = (newTitle: string) => {
+                                changeTaskTitle(task.id, newTitle, todolistId)
+                            }
+
 
                             return <li key={task.id} className={task.isDone ? 'is-done' : ''}>
                                 <input type="checkbox" checked={task.isDone} onChange={changeTaskStatusHandler}/>
-                                <span>{task.title}</span>
+                                <EditableSpan title={task.title} changeTitle={changeTaskTitleCollback}/>
                                 <Button onClick={removeTaskHandler} title={'x'}/>
                             </li>
                         })}
