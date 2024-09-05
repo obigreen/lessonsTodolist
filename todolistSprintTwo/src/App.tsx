@@ -17,10 +17,6 @@ function App() {
     // BLL - bisnes logic lair
     // data
 
-    const todoListTitle = "Todo one";
-    const [filter, setFilter] = useState<FilterValueType>('All')
-
-
     const [tasks, setTasks] = useState<TaskType[]>(
         [
             {id: v1(), title: 'HTML&CSS', isDone: true},
@@ -28,6 +24,9 @@ function App() {
             {id: v1(), title: 'ReactJS', isDone: false}
         ]
     );
+
+
+    const [filter, setFilter] = useState<FilterValueType>('All')
 
 
     //removeTasks
@@ -53,10 +52,20 @@ function App() {
         setTasks(newTasks)
     }
 
+
+    let tasksForTodolist = tasks
+    if (filter === "Active") {
+        tasksForTodolist = tasks.filter(t => !t.isDone)
+    }
+    if (filter === "Completed") {
+        tasksForTodolist = tasks.filter(t => t.isDone)
+    }
+
+
     return (
         <div className={'App'}>
-            <Todolist title={todoListTitle}
-                      tasks={tasks}
+            <Todolist title={"Todo one"}
+                      tasks={tasksForTodolist}
                       removeTasks={removeTasks}
                       changeFilter={changeFilter}
                       filter={filter}

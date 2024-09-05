@@ -13,22 +13,10 @@ type PropsType = {
 }
 
 
-export const Todolist = ({title, tasks, removeTasks, changeFilter, filter, addTask}: PropsType) => {
+export const Todolist = ({title, tasks, removeTasks, changeFilter, addTask}: PropsType) => {
 
     const [taskTitle, setTaskTitle] = useState('')
 
-    const getFilteredTasks = (allTasks: Array<TaskType>, filterValue: FilterValueType): Array<TaskType> => {
-        switch (filterValue) {
-            case "Active":
-                return allTasks.filter(t => !t.isDone);
-            case "Completed":
-                return allTasks.filter(t => t.isDone);
-            default:
-                return allTasks;
-        }
-    }
-    const filteredTasks: Array<TaskType> = getFilteredTasks(tasks, filter)
-    
     const addTaskHandler = () => {
         addTask(taskTitle)
         setTaskTitle('')
@@ -55,10 +43,10 @@ export const Todolist = ({title, tasks, removeTasks, changeFilter, filter, addTa
             </div>
 
             {
-                filteredTasks.length === 0 ?
+                tasks.length === 0 ?
                     <p>no tasts</p> :
                     <ul>
-                        {filteredTasks.map(t => {
+                        {tasks.map(t => {
                             const onClickRemoveTaskHandler = () => {
                                 removeTasks(t.id)
                             }
