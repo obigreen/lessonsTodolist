@@ -1,27 +1,8 @@
 .App {
-    padding: 30px;
+  padding: 30px;
+  display: flex;
 }
 
-ul {
-    list-style: none;
-    padding-left: 10px;
+.App > div {
+  margin-right: 50px;
 }
-
-.todolist {
-    /*max-width: 300px;*/
-    /*width: 100%;*/
-    width: max-content;
-    padding: 15px;
-    background-color: antiquewhite;
-}
-
-.todolist > h1 {
-    font-size: 20px;
-
-}
-
-
-.task {
-    font-weight: 600;
-}
-
