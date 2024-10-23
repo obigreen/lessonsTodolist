@@ -1,5 +1,25 @@
-.App {
-    padding: 30px;
+.todolist-title-container {
+    display: flex;
+    align-items: center;
+}
+
+.todolist {
+    /*width: 100%;*/
+    width: max-content;
+    padding: 15px;
+}
+
+.error {
+    border-color: red;
+
+}
+
+.error-message {
+    color: red;
+}
+
+.is-done {
+    opacity: 0.5;
 }
 
 ul {
@@ -7,13 +27,6 @@ ul {
     padding-left: 10px;
 }
 
-.todolist {
-    /*max-width: 300px;*/
-    /*width: 100%;*/
-    width: max-content;
-    padding: 15px;
-    background-color: antiquewhite;
-}
 
 .todolist > h1 {
     font-size: 20px;
